@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --hol-bg: #efefe7;
+        --hol-orange: #ff4d00;
+        --hol-blue: #1d8cf8;
+        --hol-ink: #121212;
+    }
+
+    body {
+        font-family: 'Archivo', sans-serif;
+        background-color: var(--hol-bg);
+        color: var(--hol-ink);
+    }
+}
+
+@layer components {
+    .hol-panel {
+        @apply rounded-2xl border border-black/10 bg-white p-6 shadow-sm;
+    }
+
+    .hol-input {
+        @apply w-full rounded-xl border border-black/15 bg-white px-3 py-3 text-sm text-slate-900 outline-none transition focus:border-[#1d8cf8] focus:ring-2 focus:ring-[#1d8cf8]/20;
+    }
+
+    .hol-label {
+        @apply mb-2 block text-sm font-semibold text-black/80;
+    }
+
+    .hol-btn-primary {
+        @apply inline-flex items-center justify-center rounded-xl bg-[#ff4d00] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#e64500];
+    }
+
+    .hol-btn-secondary {
+        @apply inline-flex items-center justify-center rounded-xl bg-[#1d8cf8] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0b79e4];
+    }
+
+    .hol-plan-output table {
+        @apply mb-4 w-full border-collapse overflow-hidden rounded-lg border border-black/15;
+    }
+
+    .hol-plan-output th {
+        @apply border border-black/15 bg-[#efefe7] px-3 py-2 text-left text-xs font-bold uppercase tracking-wide text-slate-800;
+    }
+
+    .hol-plan-output td {
+        @apply border border-black/10 px-3 py-2 align-top text-sm text-slate-800;
+    }
+
+    .hol-plan-output h1,
+    .hol-plan-output h2,
+    .hol-plan-output h3,
+    .hol-plan-output h4 {
+        @apply mb-2 mt-4 text-lg font-extrabold text-black;
+    }
+
+    .hol-sidebar {
+        @apply w-full border-b border-black/10 bg-[#ff4d00] p-4 text-white lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:h-screen lg:w-72 lg:flex-col lg:border-b-0 lg:border-r lg:p-6;
+    }
+
+    .hol-brand {
+        @apply mb-4 inline-block text-2xl font-extrabold uppercase tracking-tight;
+    }
+
+    .hol-nav {
+        @apply flex flex-nowrap gap-2 overflow-x-auto whitespace-nowrap text-xs font-semibold uppercase sm:text-sm lg:min-h-0 lg:flex-1 lg:flex-col lg:flex-nowrap lg:overflow-x-hidden lg:overflow-y-auto lg:whitespace-normal;
+    }
+
+    .hol-nav-link {
+        @apply inline-flex items-center justify-center rounded-lg px-3 py-2 text-center transition hover:bg-white/15 lg:justify-start;
+    }
+
+    .hol-nav-link-primary {
+        @apply bg-[#1d8cf8] hover:bg-[#0b79e4];
+    }
+
+    .hol-nav-link-outline {
+        @apply border border-[#1d8cf8] text-[#1d8cf8] hover:bg-[#1d8cf8] hover:text-white;
+    }
+
+    .hol-sidebar-video {
+        @apply mb-3 max-h-28 w-full overflow-hidden rounded-xl border border-black/10 bg-black/10;
+    }
+
+    .hol-content {
+        @apply lg:ml-72;
+    }
+
+    .hol-main {
+        @apply px-4 py-8 sm:px-6 lg:px-8;
+    }
+
+    .hol-footer {
+        @apply mt-10 bg-[#ff4d00] text-white;
+    }
+
+    .hol-footer-inner {
+        @apply mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-6 text-sm sm:px-6 lg:px-8;
+    }
+}
+
+.announcement-html img,
+.announcement-html .froala-editor-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.75rem;
+}
+
+.announcement-html .fr-fil,
+.announcement-html .fr-fir {
+    float: none !important;
+}
+
+.announcement-html iframe,
+.announcement-html video {
+    width: 100%;
+    max-width: 100%;
+    min-height: 320px;
+    border: 0;
+    border-radius: 0.75rem;
+}
