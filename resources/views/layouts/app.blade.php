@@ -28,6 +28,8 @@
                     <a href="{{ route('volunteer.dashboard') }}" class="hol-nav-link">Volunteer Panel</a>
                     <a href="{{ route('volunteer.profile.edit') }}" class="hol-nav-link">My Profile</a>
                     <a href="{{ route('volunteer.lessons.index') }}" class="hol-nav-link">My Lectures</a>
+                    <a href="{{ route('teacher.courses.index') }}" class="hol-nav-link">My Courses</a>
+                    <a href="{{ route('teacher.certificates.index') }}" class="hol-nav-link">My Certificates</a>
                 @endif
                 @if(auth()->user()->role === 'admin')
                     <details class="w-full" @if(request()->routeIs('admin.*')) open @endif>

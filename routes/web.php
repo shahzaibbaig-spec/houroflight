@@ -12,6 +12,9 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SchoolRegistrationController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\Teacher\CertificateController;
+use App\Http\Controllers\Teacher\CourseController;
+use App\Http\Controllers\Teacher\QuizController;
 use App\Http\Controllers\VolunteerDashboardController;
 use App\Http\Controllers\VolunteerProfileController;
 use App\Http\Controllers\VolunteerPublicController;
@@ -75,6 +78,12 @@ Route::middleware(['auth', 'volunteer.teacher'])->group(function () {
     Route::get('/volunteer/lessons/{lesson}/edit', [LessonController::class, 'edit'])->name('volunteer.lessons.edit');
     Route::put('/volunteer/lessons/{lesson}', [LessonController::class, 'update'])->name('volunteer.lessons.update');
     Route::post('/volunteer/lessons/{lesson}/submit', [LessonController::class, 'submit'])->name('volunteer.lessons.submit');
+
+    Route::get('/teacher/courses', [CourseController::class, 'index'])->name('teacher.courses.index');
+    Route::get('/teacher/courses/{course}', [CourseController::class, 'show'])->name('teacher.courses.show');
+    Route::get('/teacher/courses/{course}/quiz', [QuizController::class, 'take'])->name('teacher.courses.quiz.take');
+    Route::post('/teacher/courses/{course}/quiz', [QuizController::class, 'submit'])->name('teacher.courses.quiz.submit');
+    Route::get('/teacher/certificates', [CertificateController::class, 'index'])->name('teacher.certificates.index');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
