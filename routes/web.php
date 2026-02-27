@@ -107,3 +107,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/lessons/{lesson}/publish', [LessonModerationController::class, 'publish'])->name('lessons.publish');
     Route::post('/lessons/{lesson}/unpublish', [LessonModerationController::class, 'unpublish'])->name('lessons.unpublish');
 });
+
+// Fallback route for 404 errors
+
