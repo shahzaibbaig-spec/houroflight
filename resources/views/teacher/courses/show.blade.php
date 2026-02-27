@@ -37,7 +37,7 @@
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <h2 class="h5 mb-0 fw-semibold">Module {{ $lesson->order }}: {{ $lesson->title }}</h2>
                             </div>
-                            <div class="small text-muted">{!! $lesson->content !!}</div>
+                            <div class="course-module-content">{!! $lesson->content !!}</div>
                         </div>
                     </div>
                 </div>

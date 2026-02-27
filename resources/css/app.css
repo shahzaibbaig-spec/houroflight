@@ -127,3 +127,91 @@
     border: 0;
     border-radius: 0.75rem;
 }
+
+.course-module-content {
+    color: #334155;
+    font-size: 0.98rem;
+    line-height: 1.7;
+}
+
+.course-module-content h2 {
+    margin: 0 0 0.85rem;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.course-module-content h3 {
+    margin: 1.15rem 0 0.6rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.course-module-content p {
+    margin: 0 0 0.85rem;
+}
+
+.course-module-content ul {
+    margin: 0.25rem 0 1rem 1.15rem;
+}
+
+.course-module-content li {
+    margin-bottom: 0.35rem;
+}
+
+.course-module-content figure {
+    margin: 0 0 1rem;
+}
+
+.course-module-content img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.9rem;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    box-shadow: 0 8px 24px rgba(2, 6, 23, 0.12);
+}
+
+.course-callout {
+    margin: 1rem 0 1.1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.course-callout h4 {
+    margin: 0 0 0.45rem;
+    font-size: 0.92rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.course-callout ul {
+    margin: 0;
+    padding-left: 1.1rem;
+}
+
+.course-callout li {
+    margin-bottom: 0.25rem;
+    font-size: 0.92rem;
+}
+
+.course-callout-key {
+    background: #eef6ff;
+    border-color: #bfdbfe;
+}
+
+.course-callout-key h4 {
+    color: #1e40af;
+}
+
+.course-callout-action {
+    background: #fff7ed;
+    border-color: #fdba74;
+}
+
+.course-callout-action h4 {
+    color: #c2410c;
+}

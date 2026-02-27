@@ -28,7 +28,18 @@ class CourseSeeder extends Seeder
                 'title' => 'Understanding Continuous Learning',
                 'content' => <<<'HTML'
 <h2>Module 1: Understanding Continuous Learning</h2>
+<figure>
+    <img src="/images/courses/continuous-learning-module-1.svg" alt="Teacher guiding students during a classroom learning session" />
+</figure>
 <p>Continuous learning is the disciplined habit of improving knowledge, instructional skill, and professional judgment throughout a teaching career. In modern education, static expertise is not enough because learner needs, curriculum priorities, technology tools, and assessment expectations evolve quickly. Teachers who practice continuous learning are better prepared to adapt instruction, solve classroom challenges, and deliver meaningful outcomes for students across different ability levels.</p>
+<section class="course-callout course-callout-key">
+    <h4>Key Takeaways</h4>
+    <ul>
+        <li>Continuous learning keeps teaching methods current and effective.</li>
+        <li>Small weekly improvements produce strong long-term instructional growth.</li>
+        <li>Reflection and feedback are essential for sustainable excellence.</li>
+    </ul>
+</section>
 
 <h3>Why Continuous Learning Matters in Teaching</h3>
 <p>Teaching is a high-impact profession where daily decisions affect confidence, achievement, and long-term student growth. Continuous learners avoid professional stagnation by reviewing practice, testing better methods, and updating subject knowledge. This mindset supports stronger planning, more inclusive classroom management, and better communication with families and school leaders.</p>
@@ -68,6 +79,14 @@ class CourseSeeder extends Seeder
     <li>Week 3: Collect evidence from student responses and outcomes.</li>
     <li>Week 4: Refine the strategy and scale to additional classes.</li>
 </ul>
+<section class="course-callout course-callout-action">
+    <h4>Action Plan</h4>
+    <ul>
+        <li>Create a weekly 45-minute professional learning block in your calendar.</li>
+        <li>Run one teaching experiment each week and document evidence.</li>
+        <li>Review outcomes every Friday and define one adjustment for next week.</li>
+    </ul>
+</section>
 
 <p>Continuous learning is not an extra burden; it is the operating system of high-quality teaching. When teachers intentionally learn, students receive better questions, stronger explanations, clearer feedback, and more engaging classroom experiences.</p>
 HTML,
@@ -76,7 +95,18 @@ HTML,
                 'title' => 'Creating a Learning Culture',
                 'content' => <<<'HTML'
 <h2>Module 2: Creating a Learning Culture</h2>
+<figure>
+    <img src="/images/courses/continuous-learning-module-2.svg" alt="Classroom with students collaborating and teacher facilitating discussion" />
+</figure>
 <p>A learning culture is an environment where growth, inquiry, and improvement are normal expectations for both teachers and students. In schools with a strong learning culture, people ask better questions, share practices openly, and treat feedback as a tool for progress rather than criticism. Teachers play a central role in shaping this culture through routines, communication, and visible learning behaviors.</p>
+<section class="course-callout course-callout-key">
+    <h4>Key Takeaways</h4>
+    <ul>
+        <li>Learning culture is built through daily routines, not one-time events.</li>
+        <li>Psychological safety helps both students and teachers take productive risks.</li>
+        <li>Collaboration should be structured, frequent, and evidence-driven.</li>
+    </ul>
+</section>
 
 <h3>Characteristics of a Strong Learning Culture</h3>
 <p>Culture is built through repeated actions. It is not created by slogans, isolated workshops, or occasional meetings. A healthy learning culture is visible in how teams collaborate, how students respond to challenge, and how school leaders support experimentation. Teachers can influence this immediately by modeling reflection, encouraging risk-taking, and normalizing mistake-based learning.</p>
@@ -116,6 +146,14 @@ HTML,
     <li>Use simple templates for planning, observation, and feedback.</li>
     <li>Track changes and outcomes in a visible team dashboard.</li>
 </ul>
+<section class="course-callout course-callout-action">
+    <h4>Action Plan</h4>
+    <ul>
+        <li>Start one weekly peer reflection meeting with a clear 3-point agenda.</li>
+        <li>Define one school-wide teaching focus for the next four weeks.</li>
+        <li>Track implementation with short observations and shared notes.</li>
+    </ul>
+</section>
 
 <p>Creating a learning culture is a strategic process. When teachers consistently reinforce inquiry, accountability, and collaboration, school improvement becomes sustainable and student outcomes become more predictable.</p>
 HTML,
@@ -124,7 +162,18 @@ HTML,
                 'title' => 'Becoming a Master Learner',
                 'content' => <<<'HTML'
 <h2>Module 3: Becoming a Master Learner</h2>
+<figure>
+    <img src="/images/courses/continuous-learning-module-3.svg" alt="Teacher reviewing student outcomes and planning next lesson steps" />
+</figure>
 <p>A master learner is a teacher who learns with purpose, applies knowledge quickly, and continuously improves performance through evidence. Mastery is not about consuming more content; it is about learning the right things, at the right depth, and converting learning into measurable impact on student achievement. This module gives teachers a practical system to become intentional, efficient, and high-performing learners.</p>
+<section class="course-callout course-callout-key">
+    <h4>Key Takeaways</h4>
+    <ul>
+        <li>Mastery requires focused goals, not random professional development.</li>
+        <li>Deliberate practice transforms ideas into measurable classroom impact.</li>
+        <li>Knowledge systems help teachers retain and reuse proven strategies.</li>
+    </ul>
+</section>
 
 <h3>Define Your Professional Learning Strategy</h3>
 <p>Master learners start with a clear strategy rather than random professional development. They identify a priority area, understand their current baseline, and commit to a sequence of deliberate practice. A strategy should specify what to learn, why it matters, and how success will be measured in classroom outcomes.</p>
@@ -164,6 +213,14 @@ HTML,
     <li>Collect student voice on clarity and engagement.</li>
     <li>Evaluate progress every two weeks and reset goals as needed.</li>
 </ul>
+<section class="course-callout course-callout-action">
+    <h4>Action Plan</h4>
+    <ul>
+        <li>Select one high-impact skill and practice it for two weeks.</li>
+        <li>Collect three evidence points per week from student performance.</li>
+        <li>Review with a mentor and refine your strategy in the next cycle.</li>
+    </ul>
+</section>
 
 <p>Becoming a master learner is a long-term professional identity, not a short-term activity. Teachers who combine strategy, practice, systems, and evidence consistently improve faster and lead stronger learning experiences for every student.</p>
 HTML,
@@ -172,7 +229,18 @@ HTML,
                 'title' => 'Receptiveness to Learning & Behaviour Modification',
                 'content' => <<<'HTML'
 <h2>Module 4: Receptiveness to Learning and Behaviour Modification</h2>
+<figure>
+    <img src="/images/courses/continuous-learning-module-4.svg" alt="Teacher receiving feedback while observing student classroom behavior" />
+</figure>
 <p>Receptiveness to learning is the willingness to update beliefs, adopt better methods, and respond constructively to evidence. For teachers, this quality is critical because classroom realities often challenge assumptions. Behaviour modification is the process of turning new insights into repeatable professional habits. Together, these two capabilities help educators move from awareness to sustained improvement.</p>
+<section class="course-callout course-callout-key">
+    <h4>Key Takeaways</h4>
+    <ul>
+        <li>Openness to feedback is a professional strength, not a weakness.</li>
+        <li>Behavior change succeeds when tied to clear cues and routines.</li>
+        <li>Consistent tracking turns intention into sustainable improvement.</li>
+    </ul>
+</section>
 
 <h3>Understanding Receptiveness in Professional Growth</h3>
 <p>Receptive teachers do not defend ineffective routines when data shows gaps. They remain open to coaching, student feedback, and peer observation. Receptiveness is not passive agreement; it is active evaluation and disciplined adjustment. This mindset increases instructional agility and supports inclusive teaching for diverse student needs.</p>
@@ -211,6 +279,14 @@ HTML,
     <li>Document successful routines in a personal teaching playbook.</li>
     <li>Use short reflection prompts after each teaching day.</li>
 </ul>
+<section class="course-callout course-callout-action">
+    <h4>Action Plan</h4>
+    <ul>
+        <li>Pick one behavior to improve and define a concrete classroom cue.</li>
+        <li>Track completion daily with a simple yes/no checklist.</li>
+        <li>Review results weekly and adjust only one variable at a time.</li>
+    </ul>
+</section>
 
 <p>Receptiveness and behaviour modification turn professional intent into visible classroom impact. Teachers who practice both consistently become more adaptive, more effective, and more capable of leading meaningful change in school communities.</p>
 HTML,
@@ -219,7 +295,18 @@ HTML,
                 'title' => 'Mastering Creativity',
                 'content' => <<<'HTML'
 <h2>Module 5: Mastering Creativity</h2>
+<figure>
+    <img src="/images/courses/continuous-learning-module-5.svg" alt="Teacher leading a creative classroom activity with engaged students" />
+</figure>
 <p>Creativity in education is the ability to design learning experiences that are engaging, meaningful, and responsive to student needs while still aligned with curriculum goals. Creative teaching is not entertainment without direction; it is purposeful innovation that improves understanding, retention, and student motivation. This module helps teachers build a repeatable process for generating and applying creative instructional ideas.</p>
+<section class="course-callout course-callout-key">
+    <h4>Key Takeaways</h4>
+    <ul>
+        <li>Creativity should always serve clear curriculum outcomes.</li>
+        <li>Choice, challenge, and relevance increase learner engagement.</li>
+        <li>Creative instruction is strongest when measured with evidence.</li>
+    </ul>
+</section>
 
 <h3>The Role of Creativity in Modern Classrooms</h3>
 <p>Students learn better when instruction connects with curiosity, real-world relevance, and active thinking. Creative teachers vary instructional methods, use multiple representations, and design tasks that require reasoning rather than memorization alone. Creativity also helps teachers reach mixed-ability classes by providing flexible pathways to the same learning objective.</p>
@@ -259,6 +346,14 @@ HTML,
     <li>Compare performance on traditional and creative assessments.</li>
     <li>Review evidence every two weeks and iterate quickly.</li>
 </ul>
+<section class="course-callout course-callout-action">
+    <h4>Action Plan</h4>
+    <ul>
+        <li>Redesign one existing lesson using two creative learning modalities.</li>
+        <li>Use a rubric to compare student outcomes before and after redesign.</li>
+        <li>Share the strongest activity with your team for peer refinement.</li>
+    </ul>
+</section>
 
 <p>Mastering creativity is a professional advantage that combines pedagogical rigor with innovation. Teachers who apply creativity strategically produce stronger learning experiences, deeper student thinking, and more resilient classroom engagement over time.</p>
 HTML,
