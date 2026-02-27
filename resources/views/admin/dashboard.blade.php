@@ -10,6 +10,16 @@
                 {{ session('success') }}
             </div>
         @endif
+
+        @if($errors->any())
+            <div class="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                <ul class="mb-0 list-disc ps-4">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </section>
 
     <section class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -31,6 +41,43 @@
     </section>
 
     <section class="mt-6 grid gap-6 lg:grid-cols-2">
+        <article class="hol-panel">
+            <h2 class="text-2xl font-extrabold text-black">Add New User</h2>
+            <p class="mt-2 text-sm text-slate-600">Create accounts and assign user type.</p>
+
+            <form method="POST" action="{{ route('admin.users.store') }}" class="mt-4 space-y-4">
+                @csrf
+                <div>
+                    <label class="hol-label" for="user_name">Name</label>
+                    <input id="user_name" name="name" type="text" class="hol-input" value="{{ old('name') }}" required>
+                </div>
+                <div>
+                    <label class="hol-label" for="user_email">Email</label>
+                    <input id="user_email" name="email" type="email" class="hol-input" value="{{ old('email') }}" required>
+                </div>
+                <div>
+                    <label class="hol-label" for="user_role">User Type</label>
+                    <select id="user_role" name="role" class="hol-input" required>
+                        <option value="admin" @selected(old('role') === 'admin')>Admin</option>
+                        <option value="donor" @selected(old('role') === 'donor')>Donor</option>
+                        <option value="volunteer_teacher" @selected(old('role') === 'volunteer_teacher')>Volunteer Teacher</option>
+                        <option value="volunteer_general" @selected(old('role') === 'volunteer_general')>Volunteer General</option>
+                    </select>
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <div>
+                        <label class="hol-label" for="user_password">Password</label>
+                        <input id="user_password" name="password" type="password" class="hol-input" required>
+                    </div>
+                    <div>
+                        <label class="hol-label" for="user_password_confirmation">Confirm Password</label>
+                        <input id="user_password_confirmation" name="password_confirmation" type="password" class="hol-input" required>
+                    </div>
+                </div>
+                <button type="submit" class="hol-btn-primary">Create User</button>
+            </form>
+        </article>
+
         <article class="hol-panel">
             <h2 class="text-2xl font-extrabold text-black">Create Popup Announcement</h2>
             <p class="mt-2 text-sm text-slate-600">You can post text-only, full-screen media, or YouTube autoplay popups.</p>
@@ -115,6 +162,53 @@
                 @endforelse
             </div>
         </article>
+    </section>
+
+    <section class="mt-6 rounded-2xl bg-white p-6 shadow-sm">
+        <h2 class="text-2xl font-extrabold text-black">Users</h2>
+        <p class="mt-2 text-sm text-slate-600">Update user passwords from here.</p>
+        <div class="mt-4 overflow-x-auto">
+            <table class="w-full min-w-[760px] border-collapse">
+                <thead>
+                    <tr class="bg-[#efefe7]">
+                        <th class="border border-black/10 px-3 py-2 text-left text-xs font-bold uppercase">Name</th>
+                        <th class="border border-black/10 px-3 py-2 text-left text-xs font-bold uppercase">Email</th>
+                        <th class="border border-black/10 px-3 py-2 text-left text-xs font-bold uppercase">Type</th>
+                        <th class="border border-black/10 px-3 py-2 text-left text-xs font-bold uppercase">Password</th>
+                        <th class="border border-black/10 px-3 py-2 text-left text-xs font-bold uppercase">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($users as $user)
+                        <tr>
+                            <td class="border border-black/10 px-3 py-2 text-sm">{{ $user->name }}</td>
+                            <td class="border border-black/10 px-3 py-2 text-sm">{{ $user->email }}</td>
+                            <td class="border border-black/10 px-3 py-2 text-sm">{{ $user->role }}</td>
+                            <td class="border border-black/10 px-3 py-2 text-sm">
+                                <form method="POST" action="{{ route('admin.users.password.update', $user) }}" class="flex flex-col gap-2 sm:flex-row sm:items-center">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="password" name="password" class="hol-input" placeholder="New password" required>
+                                    <input type="password" name="password_confirmation" class="hol-input" placeholder="Confirm password" required>
+                                    <button type="submit" class="rounded-lg bg-black px-3 py-2 text-xs font-bold text-white whitespace-nowrap">Update</button>
+                                </form>
+                            </td>
+                            <td class="border border-black/10 px-3 py-2 text-sm">
+                                <form method="POST" action="{{ route('admin.users.destroy', $user) }}" onsubmit="return confirm('Delete this user account?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="rounded-lg bg-red-600 px-3 py-2 text-xs font-bold text-white">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="border border-black/10 px-3 py-4 text-center text-sm text-slate-600">No users found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <section class="mt-6 rounded-2xl bg-white p-6 shadow-sm">

@@ -90,6 +90,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::post('/announcements', [AdminController::class, 'storeAnnouncement'])->name('announcements.store');
     Route::post('/announcements/{announcement}/toggle', [AdminController::class, 'toggleAnnouncement'])->name('announcements.toggle');
+    Route::post('/users', [AdminController::class, 'storeUser'])->name('users.store');
+    Route::put('/users/{user}/password', [AdminController::class, 'updateUserPassword'])->name('users.password.update');
+    Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('users.destroy');
     Route::post('/donations/{donation}/verify', [DonationVerificationController::class, 'verify'])->name('donations.verify');
     Route::post('/donations/{donation}/approve-proof', [AdminController::class, 'approveDonationProof'])->name('donations.approve-proof');
     Route::delete('/donations/{donation}/cancel-proof', [AdminController::class, 'cancelDonationProof'])->name('donations.cancel-proof');

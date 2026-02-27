@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Announcement;
 use App\Models\Donation;
 use App\Models\School;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -17,6 +19,7 @@ class AdminController extends Controller
     public function dashboard(): View
     {
         $schools = School::query()->latest()->get();
+        $users = User::query()->latest()->get();
         $donationTotals = Donation::query()
             ->whereIn('status', ['succeeded', 'done'])
             ->selectRaw('currency, SUM(amount) as total_amount, COUNT(*) as total_count')
@@ -29,7 +32,7 @@ class AdminController extends Controller
 
         $announcements = Announcement::query()->latest()->get();
 
-        return view('admin.dashboard', compact('schools', 'donationTotals', 'announcements', 'proofDonations'));
+        return view('admin.dashboard', compact('schools', 'users', 'donationTotals', 'announcements', 'proofDonations'));
     }
 
     public function storeAnnouncement(Request $request): RedirectResponse
@@ -139,5 +142,73 @@ class AdminController extends Controller
         return redirect()
             ->route('admin.dashboard')
             ->with('success', 'School removed from partner listings.');
+    }
+
+    public function storeUser(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'role' => ['required', Rule::in($this->allowedRoles())],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $role = (string) $validated['role'];
+
+        User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'role' => $role,
+            'is_teacher' => $role === User::ROLE_VOLUNTEER_TEACHER,
+            'password' => $validated['password'],
+        ]);
+
+        return redirect()
+            ->route('admin.dashboard')
+            ->with('success', 'User created successfully.');
+    }
+
+    public function updateUserPassword(Request $request, User $user): RedirectResponse
+    {
+        $validated = $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user->update([
+            'password' => $validated['password'],
+        ]);
+
+        return redirect()
+            ->route('admin.dashboard')
+            ->with('success', 'Password updated for '.$user->email.'.');
+    }
+
+    public function destroyUser(Request $request, User $user): RedirectResponse
+    {
+        if ((int) $request->user()->id === (int) $user->id) {
+            return redirect()
+                ->route('admin.dashboard')
+                ->with('success', 'You cannot delete your own account.');
+        }
+
+        $userEmail = $user->email;
+        $user->delete();
+
+        return redirect()
+            ->route('admin.dashboard')
+            ->with('success', 'User deleted: '.$userEmail.'.');
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function allowedRoles(): array
+    {
+        return [
+            User::ROLE_ADMIN,
+            User::ROLE_DONOR,
+            User::ROLE_VOLUNTEER_TEACHER,
+            User::ROLE_VOLUNTEER_GENERAL,
+        ];
     }
 }

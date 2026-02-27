@@ -13,6 +13,9 @@
         @if(session('success'))
             <div class="alert alert-success mt-4 mb-0">{{ session('success') }}</div>
         @endif
+        @if(session('error'))
+            <div class="alert alert-danger mt-4 mb-0">{{ session('error') }}</div>
+        @endif
 
         @if($latestAttempt)
             <div class="alert {{ $latestAttempt->passed ? 'alert-success' : 'alert-warning' }} mt-4 mb-0">
