@@ -11,8 +11,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use RuntimeException;
+use Throwable;
 
 class QuizController extends Controller
 {
@@ -72,44 +75,56 @@ class QuizController extends Controller
         $percentageScore = (int) round(($scoreMarks / $totalMarks) * 100);
         $passed = $percentageScore >= (int) $course->passing_score;
 
-        DB::transaction(function () use ($request, $course, $quiz, $percentageScore, $passed): void {
-            QuizAttempt::create([
-                'user_id' => (int) $request->user()->id,
-                'quiz_id' => (int) $quiz->id,
-                'score' => $percentageScore,
-                'passed' => $passed,
-                'attempted_at' => now(),
-            ]);
+        try {
+            DB::transaction(function () use ($request, $course, $quiz, $percentageScore, $passed): void {
+                QuizAttempt::create([
+                    'user_id' => (int) $request->user()->id,
+                    'quiz_id' => (int) $quiz->id,
+                    'score' => $percentageScore,
+                    'passed' => $passed,
+                    'attempted_at' => now(),
+                ]);
 
-            if (! $passed) {
-                return;
-            }
+                if (! $passed) {
+                    return;
+                }
 
-            $certificate = Certificate::firstOrNew([
+                $certificate = Certificate::firstOrNew([
+                    'user_id' => (int) $request->user()->id,
+                    'course_id' => (int) $course->id,
+                ]);
+
+                if (! $certificate->exists) {
+                    $certificate->certificate_number = $this->generateCertificateNumber(
+                        (int) $course->id,
+                        (int) $request->user()->id
+                    );
+                }
+
+                $certificate->issued_at = now();
+                $certificate->save();
+
+                $pdfPath = $this->storeCertificatePdf(
+                    $certificate,
+                    $course->title,
+                    (string) $request->user()->name
+                );
+
+                $certificate->update([
+                    'pdf_path' => $pdfPath,
+                ]);
+            });
+        } catch (Throwable $e) {
+            Log::error('Certificate generation failed', [
                 'user_id' => (int) $request->user()->id,
                 'course_id' => (int) $course->id,
+                'message' => $e->getMessage(),
             ]);
 
-            if (! $certificate->exists) {
-                $certificate->certificate_number = $this->generateCertificateNumber(
-                    (int) $course->id,
-                    (int) $request->user()->id
-                );
-            }
-
-            $certificate->issued_at = now();
-            $certificate->save();
-
-            $pdfPath = $this->storeCertificatePdf(
-                $certificate,
-                $course->title,
-                (string) $request->user()->name
-            );
-
-            $certificate->update([
-                'pdf_path' => $pdfPath,
-            ]);
-        });
+            return redirect()
+                ->route('teacher.courses.quiz.take', $course)
+                ->with('error', 'Quiz submitted but certificate PDF could not be generated. Please contact support.');
+        }
 
         return redirect()
             ->route('teacher.courses.quiz.take', $course)
@@ -141,7 +156,12 @@ class QuizController extends Controller
         ])->setPaper('a4', 'landscape');
 
         $fileName = 'certificates/'.$certificate->certificate_number.'.pdf';
-        Storage::disk('public')->put($fileName, $pdf->output());
+        Storage::disk('public')->makeDirectory('certificates');
+        $stored = Storage::disk('public')->put($fileName, $pdf->output());
+
+        if (! $stored) {
+            throw new RuntimeException('Failed to write certificate PDF to storage/app/public/certificates.');
+        }
 
         return $fileName;
     }
