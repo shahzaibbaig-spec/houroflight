@@ -174,6 +174,7 @@
                         <th class="border border-black/10 px-3 py-2 text-left text-xs font-bold uppercase">Name</th>
                         <th class="border border-black/10 px-3 py-2 text-left text-xs font-bold uppercase">Email</th>
                         <th class="border border-black/10 px-3 py-2 text-left text-xs font-bold uppercase">Type</th>
+                        <th class="border border-black/10 px-3 py-2 text-left text-xs font-bold uppercase">Approval</th>
                         <th class="border border-black/10 px-3 py-2 text-left text-xs font-bold uppercase">Password</th>
                         <th class="border border-black/10 px-3 py-2 text-left text-xs font-bold uppercase">Delete</th>
                     </tr>
@@ -184,6 +185,18 @@
                             <td class="border border-black/10 px-3 py-2 text-sm">{{ $user->name }}</td>
                             <td class="border border-black/10 px-3 py-2 text-sm">{{ $user->email }}</td>
                             <td class="border border-black/10 px-3 py-2 text-sm">{{ $user->role }}</td>
+                            <td class="border border-black/10 px-3 py-2 text-sm">
+                                @if($user->role !== 'donor')
+                                    <span class="text-slate-500">Not required</span>
+                                @elseif($user->approved_at)
+                                    <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold uppercase text-emerald-700">Approved</span>
+                                @else
+                                    <form method="POST" action="{{ route('admin.users.approve', $user) }}">
+                                        @csrf
+                                        <button type="submit" class="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-bold text-white">Approve</button>
+                                    </form>
+                                @endif
+                            </td>
                             <td class="border border-black/10 px-3 py-2 text-sm">
                                 <form method="POST" action="{{ route('admin.users.password.update', $user) }}" class="flex flex-col gap-2 sm:flex-row sm:items-center">
                                     @csrf
@@ -203,7 +216,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="border border-black/10 px-3 py-4 text-center text-sm text-slate-600">No users found.</td>
+                            <td colspan="6" class="border border-black/10 px-3 py-4 text-center text-sm text-slate-600">No users found.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -314,11 +327,19 @@
                             <td class="border border-black/10 px-3 py-2 text-sm">{{ is_array($school->needs) ? implode(', ', $school->needs) : '-' }}</td>
                             <td class="border border-black/10 px-3 py-2 text-sm">{{ $school->status }}</td>
                             <td class="border border-black/10 px-3 py-2 text-sm">
-                                <form method="POST" action="{{ route('admin.schools.remove', $school) }}" onsubmit="return confirm('Remove this school from partner schools?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="rounded-lg bg-red-600 px-3 py-2 text-xs font-bold text-white">Remove</button>
-                                </form>
+                                <div class="flex flex-wrap gap-2">
+                                    @if($school->status !== 'approved')
+                                        <form method="POST" action="{{ route('admin.schools.approve', $school) }}">
+                                            @csrf
+                                            <button type="submit" class="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-bold text-white">Approve</button>
+                                        </form>
+                                    @endif
+                                    <form method="POST" action="{{ route('admin.schools.remove', $school) }}" onsubmit="return confirm('Remove this school from partner schools?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="rounded-lg bg-red-600 px-3 py-2 text-xs font-bold text-white">Remove</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty

@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegistrationApprovedMail;
 use App\Models\Announcement;
 use App\Models\Donation;
 use App\Models\School;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -160,6 +163,7 @@ class AdminController extends Controller
             'email' => $validated['email'],
             'role' => $role,
             'is_teacher' => $role === User::ROLE_VOLUNTEER_TEACHER,
+            'approved_at' => now(),
             'password' => $validated['password'],
         ]);
 
@@ -181,6 +185,50 @@ class AdminController extends Controller
         return redirect()
             ->route('admin.dashboard')
             ->with('success', 'Password updated for '.$user->email.'.');
+    }
+
+    public function approveDonor(User $user): RedirectResponse
+    {
+        if ($user->role !== User::ROLE_DONOR) {
+            return redirect()
+                ->route('admin.dashboard')
+                ->with('success', 'Only donor accounts can be approved from this panel.');
+        }
+
+        if ($user->approved_at) {
+            return redirect()
+                ->route('admin.dashboard')
+                ->with('success', 'Donor account is already approved.');
+        }
+
+        $user->update(['approved_at' => now()]);
+
+        $mailSent = $this->sendApprovalEmail($user->email, $user->name, 'Donor');
+
+        return redirect()
+            ->route('admin.dashboard')
+            ->with('success', $mailSent
+                ? 'Donor account approved and welcome email sent.'
+                : 'Donor account approved, but welcome email could not be sent right now.');
+    }
+
+    public function approveSchool(School $school): RedirectResponse
+    {
+        if ($school->status === 'approved') {
+            return redirect()
+                ->route('admin.dashboard')
+                ->with('success', 'School is already approved.');
+        }
+
+        $school->update(['status' => 'approved']);
+
+        $mailSent = $this->sendApprovalEmail($school->contact_email, $school->school_name, 'School');
+
+        return redirect()
+            ->route('admin.dashboard')
+            ->with('success', $mailSent
+                ? 'School approved and welcome email sent.'
+                : 'School approved, but welcome email could not be sent right now.');
     }
 
     public function destroyUser(Request $request, User $user): RedirectResponse
@@ -210,5 +258,29 @@ class AdminController extends Controller
             User::ROLE_VOLUNTEER_TEACHER,
             User::ROLE_VOLUNTEER_GENERAL,
         ];
+    }
+
+    protected function sendApprovalEmail(string $email, string $name, string $accountType): bool
+    {
+        if ($email === '') {
+            return false;
+        }
+
+        try {
+            Mail::to($email)->send(new RegistrationApprovedMail(
+                recipientName: $name !== '' ? $name : 'User',
+                accountType: $accountType,
+            ));
+
+            return true;
+        } catch (\Throwable $exception) {
+            Log::warning('Approval welcome email failed.', [
+                'email' => $email,
+                'account_type' => $accountType,
+                'error' => $exception->getMessage(),
+            ]);
+
+            return false;
+        }
     }
 }

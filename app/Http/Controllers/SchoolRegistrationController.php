@@ -15,6 +15,7 @@ class SchoolRegistrationController extends Controller
     public function partners(): View
     {
         $schools = School::query()
+            ->where('status', 'approved')
             ->latest()
             ->get();
 
@@ -45,7 +46,7 @@ class SchoolRegistrationController extends Controller
 
         try {
             Mail::to([
-                'infor@houroflight.com',
+                'info@houroflight.com',
                 'shahzaib.baig@gmail.com',
             ])->send(new SchoolRegistrationAdminNotification($school));
 

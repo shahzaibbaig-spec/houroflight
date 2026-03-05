@@ -91,11 +91,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/announcements', [AdminController::class, 'storeAnnouncement'])->name('announcements.store');
     Route::post('/announcements/{announcement}/toggle', [AdminController::class, 'toggleAnnouncement'])->name('announcements.toggle');
     Route::post('/users', [AdminController::class, 'storeUser'])->name('users.store');
+    Route::post('/users/{user}/approve', [AdminController::class, 'approveDonor'])->name('users.approve');
     Route::put('/users/{user}/password', [AdminController::class, 'updateUserPassword'])->name('users.password.update');
     Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('users.destroy');
     Route::post('/donations/{donation}/verify', [DonationVerificationController::class, 'verify'])->name('donations.verify');
     Route::post('/donations/{donation}/approve-proof', [AdminController::class, 'approveDonationProof'])->name('donations.approve-proof');
     Route::delete('/donations/{donation}/cancel-proof', [AdminController::class, 'cancelDonationProof'])->name('donations.cancel-proof');
+    Route::post('/schools/{school}/approve', [AdminController::class, 'approveSchool'])->name('schools.approve');
     Route::delete('/schools/{school}', [AdminController::class, 'removeSchool'])->name('schools.remove');
     Route::get('/volunteers', [VolunteerModerationController::class, 'index'])->name('volunteers.index');
     Route::get('/volunteers/{volunteer}/edit', [VolunteerModerationController::class, 'edit'])->name('volunteers.edit');

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RegistrationApprovedMail;
 use App\Models\Volunteer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class VolunteerModerationController extends Controller
@@ -46,6 +49,8 @@ class VolunteerModerationController extends Controller
 
     public function update(Request $request, Volunteer $volunteer): RedirectResponse
     {
+        $wasApproved = $volunteer->status === 'approved';
+
         $validated = $request->validate([
             'expertise_subjects' => ['required', 'string', 'max:2000'],
             'grade_levels' => ['required', 'string', 'max:255'],
@@ -66,6 +71,21 @@ class VolunteerModerationController extends Controller
 
         $volunteer->update($validated);
 
+        if (! $wasApproved && $volunteer->status === 'approved') {
+            $volunteer->loadMissing('user');
+            $mailSent = $this->sendApprovalEmail(
+                (string) optional($volunteer->user)->email,
+                (string) optional($volunteer->user)->name,
+                'Volunteer Teacher'
+            );
+
+            return redirect()
+                ->route('admin.volunteers.index')
+                ->with('success', $mailSent
+                    ? 'Volunteer profile updated and approval email sent.'
+                    : 'Volunteer profile updated. Approval email could not be sent right now.');
+        }
+
         return redirect()
             ->route('admin.volunteers.index')
             ->with('success', 'Volunteer profile updated.');
@@ -73,11 +93,26 @@ class VolunteerModerationController extends Controller
 
     public function approve(Volunteer $volunteer): RedirectResponse
     {
+        if ($volunteer->status === 'approved') {
+            return redirect()
+                ->route('admin.volunteers.index')
+                ->with('success', 'Volunteer profile is already approved.');
+        }
+
         $volunteer->update(['status' => 'approved']);
+        $volunteer->loadMissing('user');
+
+        $mailSent = $this->sendApprovalEmail(
+            (string) optional($volunteer->user)->email,
+            (string) optional($volunteer->user)->name,
+            'Volunteer Teacher'
+        );
 
         return redirect()
             ->route('admin.volunteers.index')
-            ->with('success', 'Volunteer profile approved.');
+            ->with('success', $mailSent
+                ? 'Volunteer profile approved and welcome email sent.'
+                : 'Volunteer profile approved, but welcome email could not be sent right now.');
     }
 
     public function reject(Volunteer $volunteer): RedirectResponse
@@ -97,5 +132,28 @@ class VolunteerModerationController extends Controller
             ->route('admin.volunteers.index')
             ->with('success', 'Volunteer profile deleted.');
     }
-}
 
+    protected function sendApprovalEmail(string $email, string $name, string $accountType): bool
+    {
+        if ($email === '') {
+            return false;
+        }
+
+        try {
+            Mail::to($email)->send(new RegistrationApprovedMail(
+                recipientName: $name !== '' ? $name : 'User',
+                accountType: $accountType,
+            ));
+
+            return true;
+        } catch (\Throwable $exception) {
+            Log::warning('Approval welcome email failed for volunteer.', [
+                'email' => $email,
+                'account_type' => $accountType,
+                'error' => $exception->getMessage(),
+            ]);
+
+            return false;
+        }
+    }
+}
