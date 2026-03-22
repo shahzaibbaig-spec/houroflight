@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -158,14 +159,19 @@ class AdminController extends Controller
 
         $role = (string) $validated['role'];
 
-        User::create([
+        $userAttributes = [
             'name' => $validated['name'],
             'email' => $validated['email'],
             'role' => $role,
             'is_teacher' => $role === User::ROLE_VOLUNTEER_TEACHER,
-            'approved_at' => now(),
             'password' => $validated['password'],
-        ]);
+        ];
+
+        if (Schema::hasColumn('users', 'approved_at')) {
+            $userAttributes['approved_at'] = now();
+        }
+
+        User::create($userAttributes);
 
         return redirect()
             ->route('admin.dashboard')
@@ -193,6 +199,12 @@ class AdminController extends Controller
             return redirect()
                 ->route('admin.dashboard')
                 ->with('success', 'Only donor accounts can be approved from this panel.');
+        }
+
+        if (! Schema::hasColumn('users', 'approved_at')) {
+            return redirect()
+                ->route('admin.dashboard')
+                ->with('success', 'Database update required: run "php artisan migrate --force" to enable donor approval.');
         }
 
         if ($user->approved_at) {
