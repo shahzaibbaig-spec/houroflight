@@ -24,6 +24,27 @@ use Stripe\Stripe;
 
 class DonationController extends Controller
 {
+    /**
+     * @var array<int, string>
+     */
+    private const HARDWARE_TYPES = [
+        'pc',
+        'laptop',
+        'tablet',
+        'ipad',
+        'macbook',
+        'chromebook',
+        'projector',
+    ];
+
+    /**
+     * @var array<int, string>
+     */
+    private const HARDWARE_CONDITIONS = [
+        'working',
+        'not_working',
+    ];
+
     public function __construct()
     {
         $this->middleware('auth')->only(['dashboard', 'showDonation']);
@@ -201,20 +222,35 @@ class DonationController extends Controller
         $validated = $request->validate([
             'donor_name' => ['required', 'string', 'max:255'],
             'donor_email' => ['required', 'email', 'max:255'],
-            'hardware_type' => ['required', Rule::in(['Laptop', 'PC'])],
+            'donor_phone' => ['required', 'string', 'max:50'],
+            'hardware_type' => ['required', Rule::in(self::HARDWARE_TYPES)],
             'quantity' => ['required', 'integer', 'min:1', 'max:1000'],
-            'hardware_condition' => ['nullable', 'string', 'max:500'],
+            'hardware_condition' => ['required', Rule::in(self::HARDWARE_CONDITIONS)],
             'pickup_address' => ['required', 'string', 'max:2000'],
             'message' => ['nullable', 'string', 'max:2000'],
         ]);
+
+        $hardwareTypeLabel = [
+            'pc' => 'PC',
+            'laptop' => 'Laptop',
+            'tablet' => 'Tablet',
+            'ipad' => 'iPad',
+            'macbook' => 'MacBook',
+            'chromebook' => 'Chromebook',
+            'projector' => 'Projector',
+        ][$validated['hardware_type']] ?? ucfirst($validated['hardware_type']);
+        $hardwareConditionLabel = $validated['hardware_condition'] === 'working'
+            ? 'Working'
+            : 'Not Working';
 
         $body = implode("\n", [
             'New Hardware Donation Request - Hour of Light',
             'Donor Name: '.$validated['donor_name'],
             'Donor Email: '.$validated['donor_email'],
-            'Hardware Type: '.$validated['hardware_type'],
+            'Donor Phone: '.$validated['donor_phone'],
+            'Hardware Type: '.$hardwareTypeLabel,
             'Quantity: '.$validated['quantity'],
-            'Condition: '.($validated['hardware_condition'] ?? '-'),
+            'Condition: '.$hardwareConditionLabel,
             'Pickup Address: '.$validated['pickup_address'],
             'Message: '.($validated['message'] ?? '-'),
         ]);

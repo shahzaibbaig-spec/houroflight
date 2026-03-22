@@ -6,10 +6,26 @@
             $volunteerRegisterUrl = \Illuminate\Support\Facades\Route::has('volunteer.register')
                 ? route('volunteer.register')
                 : route('register');
+            $hardwareFieldKeys = ['donor_name', 'donor_email', 'donor_phone', 'hardware_type', 'quantity', 'hardware_condition', 'pickup_address', 'message'];
+            $hasHardwareErrors = collect($hardwareFieldKeys)->contains(fn (string $field): bool => $errors->has($field));
+            $requestedMode = request()->query('type');
+            $initialMode = in_array($requestedMode, ['money', 'hardware', 'time'], true)
+                ? $requestedMode
+                : ($hasHardwareErrors || old('hardware_type') ? 'hardware' : 'money');
         @endphp
 
         @if(session('success'))
             <div class="alert alert-success mb-4">{{ session('success') }}</div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger mb-4">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
 
         <div class="card border-0 shadow-sm rounded-4 mb-4">
@@ -149,41 +165,54 @@
             <div class="card border-0 shadow-sm rounded-4 mt-4">
                 <div class="card-body p-4 p-md-5">
                     <h2 class="h4 fw-bold mb-2">Hardware Donation</h2>
-                    <p class="text-secondary mb-4">Donate old laptops or PCs. We refurbish and repurpose them for deserving schools.</p>
+                    <p class="text-secondary mb-4">Donate a PC, laptop, tablet, iPad, MacBook, Chromebook, or projector. Please share device condition and complete contact details.</p>
 
                     <form method="POST" action="{{ route('donate.hardware') }}" class="row g-3">
                         @csrf
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="hd_donor_name">Donor Name</label>
-                            <input id="hd_donor_name" name="donor_name" type="text" class="form-control" required>
+                            <input id="hd_donor_name" name="donor_name" type="text" class="form-control" value="{{ old('donor_name') }}" required>
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="hd_donor_email">Donor Email</label>
-                            <input id="hd_donor_email" name="donor_email" type="email" class="form-control" required>
+                            <input id="hd_donor_email" name="donor_email" type="email" class="form-control" value="{{ old('donor_email') }}" required>
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="hd_donor_phone">Phone Number</label>
+                            <input id="hd_donor_phone" name="donor_phone" type="text" class="form-control" value="{{ old('donor_phone') }}" required>
+                        </div>
+                        <div class="col-12 col-md-6">
                             <label class="form-label" for="hd_hardware_type">Device Type</label>
                             <select id="hd_hardware_type" name="hardware_type" class="form-select" required>
                                 <option value="">Select</option>
-                                <option value="Laptop">Laptop</option>
-                                <option value="PC">PC</option>
+                                <option value="pc" @selected(old('hardware_type') === 'pc')>PC</option>
+                                <option value="laptop" @selected(old('hardware_type') === 'laptop')>Laptop</option>
+                                <option value="tablet" @selected(old('hardware_type') === 'tablet')>Tablet</option>
+                                <option value="ipad" @selected(old('hardware_type') === 'ipad')>iPad</option>
+                                <option value="macbook" @selected(old('hardware_type') === 'macbook')>MacBook</option>
+                                <option value="chromebook" @selected(old('hardware_type') === 'chromebook')>Chromebook</option>
+                                <option value="projector" @selected(old('hardware_type') === 'projector')>Projector</option>
                             </select>
                         </div>
                         <div class="col-12 col-md-4">
                             <label class="form-label" for="hd_quantity">Quantity</label>
-                            <input id="hd_quantity" name="quantity" type="number" min="1" class="form-control" required>
+                            <input id="hd_quantity" name="quantity" type="number" min="1" class="form-control" value="{{ old('quantity') }}" required>
                         </div>
-                        <div class="col-12 col-md-4">
-                            <label class="form-label" for="hd_condition">Condition</label>
-                            <input id="hd_condition" name="hardware_condition" type="text" class="form-control" placeholder="Used / Good">
+                        <div class="col-12 col-md-8">
+                            <label class="form-label" for="hd_condition">Device Condition</label>
+                            <select id="hd_condition" name="hardware_condition" class="form-select" required>
+                                <option value="">Select condition</option>
+                                <option value="working" @selected(old('hardware_condition') === 'working')>Working</option>
+                                <option value="not_working" @selected(old('hardware_condition') === 'not_working')>Not Working</option>
+                            </select>
                         </div>
                         <div class="col-12">
                             <label class="form-label" for="hd_pickup_address">Pickup Address</label>
-                            <textarea id="hd_pickup_address" name="pickup_address" rows="3" class="form-control" required></textarea>
+                            <textarea id="hd_pickup_address" name="pickup_address" rows="3" class="form-control" required>{{ old('pickup_address') }}</textarea>
                         </div>
                         <div class="col-12">
                             <label class="form-label" for="hd_message">Message (optional)</label>
-                            <textarea id="hd_message" name="message" rows="3" class="form-control"></textarea>
+                            <textarea id="hd_message" name="message" rows="3" class="form-control">{{ old('message') }}</textarea>
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Submit Hardware Donation</button>
@@ -305,7 +334,8 @@
 
             amountInput.addEventListener('input', refreshImpact);
             currencyInput.addEventListener('change', refreshImpact);
-            setMode('money');
+            const initialMode = @json($initialMode);
+            setMode(initialMode);
             refreshImpact();
         })();
     </script>
