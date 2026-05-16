@@ -72,7 +72,7 @@
                                     </form>
                                     <form method="POST" action="{{ route('admin.volunteers.reject', $volunteer) }}">
                                         @csrf
-                                        <button type="submit" class="rounded-lg bg-amber-600 px-2 py-1 text-xs font-bold text-white">Reject</button>
+                                        <button type="submit" class="rounded-lg bg-red-600 px-2 py-1 text-xs font-bold text-white">Reject</button>
                                     </form>
                                     <form method="POST" action="{{ route('admin.volunteers.destroy', $volunteer) }}" onsubmit="return confirm('Delete this volunteer profile?')">
                                         @csrf
@@ -96,4 +96,3 @@
         </div>
     </section>
 @endsection
-

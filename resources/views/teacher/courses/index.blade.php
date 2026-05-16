@@ -27,7 +27,7 @@
                                 @if($course->user_certificate)
                                     <span class="badge text-bg-success">Completed</span>
                                 @elseif($course->latest_attempt)
-                                    <span class="badge text-bg-warning">In Progress</span>
+                                    <span class="badge text-bg-primary">In Progress</span>
                                 @else
                                     <span class="badge text-bg-secondary">Not Started</span>
                                 @endif

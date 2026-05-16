@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="mx-auto max-w-4xl">
-        <div class="overflow-hidden rounded-2xl bg-[#ff4d00] p-6 text-white sm:p-8">
+        <div class="overflow-hidden rounded-2xl bg-[#1d4ed8] p-6 text-white sm:p-8">
             <h1 class="text-4xl font-extrabold leading-none">Donate to Transform Learning</h1>
             <p class="mt-3 max-w-2xl text-sm text-white/90">
                 Choose cash or hardware support. Old laptops and PCs will be repurposed for deserving schools.

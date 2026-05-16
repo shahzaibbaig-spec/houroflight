@@ -77,7 +77,7 @@
             <h2 class="text-2xl font-extrabold">Output</h2>
             <div class="flex gap-2">
                 <button id="copy-btn" class="hidden rounded-lg bg-[#1d8cf8] px-3 py-2 text-xs font-bold uppercase text-white">Copy</button>
-                <button id="word-btn" class="hidden rounded-lg bg-[#ff4d00] px-3 py-2 text-xs font-bold uppercase text-white">Word</button>
+                <button id="word-btn" class="hidden rounded-lg bg-[#1d8cf8] px-3 py-2 text-xs font-bold uppercase text-white">Word</button>
                 <button id="pdf-btn" class="hidden rounded-lg border border-black/15 bg-white px-3 py-2 text-xs font-bold uppercase">PDF</button>
             </div>
         </div>

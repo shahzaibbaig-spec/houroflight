@@ -13,8 +13,9 @@
                 <p class="small text-muted mb-4">
                     Payment confirmation on this page is informational only. Webhook verification is the source of truth for final payment status.
                 </p>
-                <a href="{{ route('donate.form') }}" class="btn btn-primary px-4">Make Another Donation</a>
+                <a href="{{ route('donate.secure') }}" class="btn btn-primary px-4">Make Another Donation</a>
             </div>
         </div>
     </section>
 @endsection
+

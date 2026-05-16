@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="overflow-hidden rounded-2xl bg-[#ff4d00] text-white">
+    <section class="overflow-hidden rounded-2xl bg-[#1d4ed8] text-white">
         <div class="grid gap-6 p-6 sm:p-8 lg:grid-cols-2 lg:items-center">
             <div>
                 <p class="text-xs font-bold uppercase tracking-[0.2em] text-white/80">About Hour of Light</p>
@@ -71,7 +71,7 @@
         </div>
     </section>
 
-    <section class="mt-6 rounded-2xl bg-[#ff4d00] p-6 text-white sm:p-8">
+    <section class="mt-6 rounded-2xl bg-[#1d4ed8] p-6 text-white sm:p-8">
         <h3 class="text-4xl font-extrabold leading-none sm:text-5xl">Help us connect the unconnected.</h3>
         <p class="mt-3 text-2xl font-extrabold">Donate and create a digital revolution.</p>
         <p class="mt-4 max-w-4xl text-sm leading-7 text-white/95">

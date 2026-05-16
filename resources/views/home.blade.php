@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="overflow-hidden rounded-2xl bg-[#ff4d00] text-white">
+    <section class="overflow-hidden rounded-2xl bg-[#1d4ed8] text-white">
         <div class="grid gap-6 p-6 sm:p-8 lg:grid-cols-2 lg:items-end">
             <div>
                 <p class="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">Hour of Light</p>

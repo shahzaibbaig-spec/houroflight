@@ -261,7 +261,7 @@
                                 @if($donation->verified_at)
                                     <span class="badge bg-success">Verified</span>
                                 @else
-                                    <span class="badge bg-warning text-dark">Pending</span>
+                                    <span class="badge bg-primary">Pending</span>
                                 @endif
                             </td>
                             <td>

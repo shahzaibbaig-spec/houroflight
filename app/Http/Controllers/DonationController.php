@@ -50,6 +50,27 @@ class DonationController extends Controller
         $this->middleware('auth')->only(['dashboard', 'showDonation']);
     }
 
+    public function landing(Request $request): View
+    {
+        $selectedOption = strtolower((string) $request->query('option', $request->query('type', '')));
+
+        if ($selectedOption === 'money') {
+            $selectedOption = 'funds';
+        } elseif ($selectedOption === 'hardware') {
+            $selectedOption = 'devices';
+        } elseif ($selectedOption === 'time') {
+            $selectedOption = 'hour';
+        }
+
+        if (! in_array($selectedOption, ['funds', 'devices', 'hour'], true)) {
+            $selectedOption = null;
+        }
+
+        return view('pages.donate-landing', [
+            'selectedOption' => $selectedOption,
+        ]);
+    }
+
     public function showForm(): View
     {
         return view('pages.donate');
@@ -208,7 +229,7 @@ class DonationController extends Controller
         ]);
 
         return redirect()
-            ->route('donate.form')
+            ->route('donate.secure')
             ->with('success', 'Payment received. Thank you for contributing to the cause. You will receive an email from us after your payment is verified.');
     }
 
@@ -265,7 +286,7 @@ class DonationController extends Controller
         }
 
         return redirect()
-            ->route('donate.form')
+            ->route('donate.secure')
             ->with('success', 'Thank you. Your hardware donation request has been submitted.');
     }
 

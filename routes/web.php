@@ -39,6 +39,8 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
+Route::get('/donate', [DonationController::class, 'landing'])->name('donate.form');
+
 Route::get('/register-school', function () {
     return view('schools.register');
 });
@@ -46,7 +48,7 @@ Route::post('/register-school', [SchoolRegistrationController::class, 'store']);
 Route::get('/our-partner-schools', [SchoolRegistrationController::class, 'partners'])->name('schools.partners');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/donate', [DonationController::class, 'showForm'])->name('donate.form');
+    Route::get('/donate/secure', [DonationController::class, 'showForm'])->name('donate.secure');
     Route::post('/donate/checkout', [DonationController::class, 'createCheckout'])->name('donate.checkout');
     Route::post('/donate/pledge', [DonationController::class, 'submitPledge'])->name('donate.pledge');
     Route::post('/donate/hardware', [DonationController::class, 'storeHardware'])->name('donate.hardware');

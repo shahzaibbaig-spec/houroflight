@@ -10,8 +10,9 @@
                 <p class="mt-3 text-secondary">
                     Your donation was canceled. No charge was completed.
                 </p>
-                <a href="{{ route('donate.form') }}" class="btn btn-primary px-4 mt-2">Try Again</a>
+                <a href="{{ route('donate.secure') }}" class="btn btn-primary px-4 mt-2">Try Again</a>
             </div>
         </div>
     </section>
 @endsection
+

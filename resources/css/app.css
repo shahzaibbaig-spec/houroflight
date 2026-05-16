@@ -7,7 +7,6 @@
 @layer base {
     :root {
         --hol-bg: #efefe7;
-        --hol-orange: #ff4d00;
         --hol-blue: #1d8cf8;
         --hol-ink: #121212;
     }
@@ -20,6 +19,22 @@
 }
 
 @layer components {
+    .hol-shell {
+        @apply bg-[#efefe7];
+    }
+
+    .hol-header {
+        @apply sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur;
+    }
+
+    .hol-nav-shell {
+        @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    }
+
+    .hol-nav-row {
+        @apply flex min-h-[4.5rem] items-center gap-3 py-2;
+    }
+
     .hol-panel {
         @apply rounded-2xl border border-black/10 bg-white p-6 shadow-sm;
     }
@@ -33,7 +48,7 @@
     }
 
     .hol-btn-primary {
-        @apply inline-flex items-center justify-center rounded-xl bg-[#ff4d00] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#e64500];
+        @apply inline-flex items-center justify-center rounded-xl bg-[#1d8cf8] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0b79e4];
     }
 
     .hol-btn-secondary {
@@ -59,48 +74,100 @@
         @apply mb-2 mt-4 text-lg font-extrabold text-black;
     }
 
-    .hol-sidebar {
-        @apply w-full border-b border-black/10 bg-[#ff4d00] p-4 text-white lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:h-screen lg:w-72 lg:flex-col lg:border-b-0 lg:border-r lg:p-6;
-    }
-
     .hol-brand {
-        @apply mb-4 inline-block text-2xl font-extrabold uppercase tracking-tight;
+        @apply inline-block text-xl font-extrabold uppercase tracking-tight text-[#0f172a] sm:text-2xl;
     }
 
-    .hol-nav {
-        @apply flex flex-nowrap gap-2 overflow-x-auto whitespace-nowrap text-xs font-semibold uppercase sm:text-sm lg:min-h-0 lg:flex-1 lg:flex-col lg:flex-nowrap lg:overflow-x-hidden lg:overflow-y-auto lg:whitespace-normal;
+    .hol-desktop-nav {
+        @apply hidden min-w-0 flex-1 flex-wrap items-center gap-1 lg:flex;
+    }
+
+    .hol-top-link {
+        @apply inline-flex items-center rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1d8cf8];
+    }
+
+    .hol-nav-actions {
+        @apply hidden items-center gap-2 lg:flex;
+    }
+
+    .hol-auth-btn {
+        @apply border border-black/10 bg-white text-slate-700 hover:border-black/20;
+    }
+
+    .hol-cta-primary {
+        @apply inline-flex items-center justify-center rounded-xl bg-[#1d8cf8] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0b79e4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1d8cf8];
+    }
+
+    .hol-cta-secondary {
+        @apply inline-flex items-center justify-center rounded-xl border border-[#1d8cf8]/30 bg-[#eef6ff] px-4 py-2 text-sm font-semibold text-[#1d8cf8] transition hover:bg-[#e2f0ff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1d8cf8];
+    }
+
+    .hol-mobile-toggle {
+        @apply ml-auto inline-flex h-10 w-10 flex-col items-center justify-center gap-1 rounded-lg border border-black/15 bg-white text-slate-900 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1d8cf8] lg:hidden;
+    }
+
+    .hol-mobile-toggle span {
+        @apply block h-0.5 w-5 rounded bg-slate-900;
+    }
+
+    .hol-mobile-menu {
+        @apply border-t border-black/10 bg-white lg:hidden;
+    }
+
+    .hol-mobile-panel {
+        @apply mx-auto flex w-full max-w-7xl flex-col gap-1 px-4 py-3 sm:px-6;
     }
 
     .hol-nav-link {
-        @apply inline-flex items-center justify-center rounded-lg px-3 py-2 text-center transition hover:bg-white/15 lg:justify-start;
+        @apply inline-flex items-center rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1d8cf8];
     }
 
-    .hol-nav-link-primary {
-        @apply bg-[#1d8cf8] hover:bg-[#0b79e4];
-    }
-
-    .hol-nav-link-outline {
-        @apply border border-[#1d8cf8] text-[#1d8cf8] hover:bg-[#1d8cf8] hover:text-white;
-    }
-
-    .hol-sidebar-video {
-        @apply mb-3 max-h-28 w-full overflow-hidden rounded-xl border border-black/10 bg-black/10;
+    .hol-mobile-cta-wrap {
+        @apply mt-2 flex flex-col gap-2 border-t border-black/10 pt-3;
     }
 
     .hol-content {
-        @apply lg:ml-72;
+        @apply flex min-h-[calc(100vh-4.5rem)] flex-col;
     }
 
     .hol-main {
-        @apply px-4 py-8 sm:px-6 lg:px-8;
+        @apply mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8;
     }
 
     .hol-footer {
-        @apply mt-10 bg-[#ff4d00] text-white;
+        @apply mt-10 border-t border-black/10 bg-[#0f172a] text-white;
     }
 
-    .hol-footer-inner {
-        @apply mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-6 text-sm sm:px-6 lg:px-8;
+    .hol-footer-shell {
+        @apply mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8;
+    }
+
+    .hol-footer-grid {
+        @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3;
+    }
+
+    .hol-footer-title {
+        @apply text-sm font-extrabold uppercase tracking-[0.16em] text-white/85;
+    }
+
+    .hol-footer-copy {
+        @apply mt-3 text-sm leading-7 text-white/80;
+    }
+
+    .hol-footer-links {
+        @apply mt-3 space-y-2 text-sm;
+    }
+
+    .hol-footer-links a {
+        @apply text-white/85 underline-offset-4 transition hover:text-white hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white;
+    }
+
+    .hol-footer-contact {
+        @apply mt-3 block text-sm font-semibold text-white underline-offset-4 transition hover:text-white/90 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white;
+    }
+
+    .hol-footer-bottom {
+        @apply mt-6 border-t border-white/15 pt-4 text-xs text-white/70;
     }
 }
 
@@ -208,10 +275,10 @@
 }
 
 .course-callout-action {
-    background: #fff7ed;
-    border-color: #fdba74;
+    background: #eef6ff;
+    border-color: #bfdbfe;
 }
 
 .course-callout-action h4 {
-    color: #c2410c;
+    color: #1e40af;
 }

@@ -8,7 +8,7 @@
             <div class="card-body p-4 p-md-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h1 class="h3 fw-bold mb-0">My Donations</h1>
-                    <a href="{{ route('donate.form') }}" class="btn btn-primary btn-sm">New Donation</a>
+                    <a href="{{ route('donate.secure') }}" class="btn btn-primary btn-sm">New Donation</a>
                 </div>
 
                 <div class="table-responsive">
@@ -32,7 +32,7 @@
                                     <td>{{ $donation->currency }}</td>
                                     <td>{{ $donation->donation_type }}</td>
                                     <td>
-                                        <span class="badge text-bg-{{ $donation->status === 'succeeded' ? 'success' : ($donation->status === 'pending' ? 'warning' : ($donation->status === 'failed' ? 'danger' : 'secondary')) }}">
+                                        <span class="badge text-bg-{{ $donation->status === 'succeeded' ? 'success' : ($donation->status === 'pending' ? 'primary' : ($donation->status === 'failed' ? 'danger' : 'secondary')) }}">
                                             {{ $donation->status }}
                                         </span>
                                     </td>
@@ -59,3 +59,4 @@
         </div>
     </section>
 @endsection
+

@@ -87,7 +87,7 @@
                 <div class="flex flex-wrap gap-2">
                     @if($lesson->status === 'submitted')
                         <button type="submit" formaction="{{ route('admin.lessons.approve', $lesson) }}" class="hol-btn-secondary">Approve</button>
-                        <button type="submit" formaction="{{ route('admin.lessons.reject', $lesson) }}" class="inline-flex items-center rounded-xl bg-[#ff4d00] px-4 py-3 text-sm font-semibold text-white">Reject</button>
+                        <button type="submit" formaction="{{ route('admin.lessons.reject', $lesson) }}" class="inline-flex items-center rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white">Reject</button>
                     @endif
                 </div>
             </form>
