@@ -29,6 +29,7 @@
                     <a href="{{ route('schools.partners') }}" class="hol-top-link">Our Partner Schools</a>
                     <a href="{{ route('volunteers.index') }}" class="hol-top-link">Our Volunteers</a>
                     <a href="{{ route('lessons.library') }}" class="hol-top-link">Lesson Library</a>
+                    <a href="{{ route('e-resources.index') }}" class="hol-top-link">E-Resources</a>
                     <a href="{{ route('ai.lesson-planner') }}" class="hol-top-link">AI Planner</a>
                     <a href="{{ url('/register-school') }}" class="hol-top-link">Register School</a>
 
@@ -88,6 +89,7 @@
                 <a href="{{ route('schools.partners') }}" class="hol-nav-link">Our Partner Schools</a>
                 <a href="{{ route('volunteers.index') }}" class="hol-nav-link">Our Volunteers</a>
                 <a href="{{ route('lessons.library') }}" class="hol-nav-link">Lesson Library</a>
+                <a href="{{ route('e-resources.index') }}" class="hol-nav-link">E-Resources</a>
                 <a href="{{ route('ai.lesson-planner') }}" class="hol-nav-link">AI Planner</a>
                 <a href="{{ url('/register-school') }}" class="hol-nav-link">Register School</a>
 
@@ -148,6 +150,7 @@
                             <li><a href="{{ route('schools.partners') }}">Our Partner Schools</a></li>
                             <li><a href="{{ route('volunteers.index') }}">Our Volunteers</a></li>
                             <li><a href="{{ route('lessons.library') }}">Lesson Library</a></li>
+                            <li><a href="{{ route('e-resources.index') }}">E-Resources</a></li>
                             <li><a href="{{ route('donate.form') }}">Donate</a></li>
                         </ul>
                     </section>
@@ -205,4 +208,3 @@
     </script>
 </body>
 </html>
-

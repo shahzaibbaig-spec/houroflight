@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\VolunteerModerationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\EResourceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\RegisterController;
@@ -64,6 +65,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/ai-lesson-planner', [AiLessonPlannerController::class, 'show'])->name('ai.lesson-planner');
     Route::post('/ai-lesson-planner/generate', [AiLessonPlannerController::class, 'generate'])->name('ai.lesson-planner.generate');
     Route::post('/ai-lesson-planner/generate-quiz', [AiLessonPlannerController::class, 'generateQuiz'])->name('ai.lesson-planner.generate-quiz');
+
+    Route::get('/e-resources', [EResourceController::class, 'index'])->name('e-resources.index');
+    Route::get('/e-resources/search', [EResourceController::class, 'search'])->name('e-resources.search');
+    Route::get('/e-resources/download/{id}', [EResourceController::class, 'download'])
+        ->where('id', '[A-Fa-f0-9]{64}')
+        ->name('e-resources.download');
 
     Route::get('/dashboard/donations', [DonationController::class, 'dashboard'])->name('donor.donations');
     Route::get('/dashboard/donations/{donation}', [DonationController::class, 'showDonation'])->name('donor.donations.show');
