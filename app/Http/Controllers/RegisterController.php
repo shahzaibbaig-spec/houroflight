@@ -45,12 +45,15 @@ class RegisterController extends Controller
                 ]);
             }
 
+            if (config('kcat.self_service')) {
+                app(\Nsms\Kcat\Services\StudentResolver::class)->resolveStudentForUser($user);
+            }
             return $user;
         });
 
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('donate.form');
+        return redirect()->intended(route('kcat.index'));
     }
 }

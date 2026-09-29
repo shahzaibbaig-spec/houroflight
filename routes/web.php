@@ -23,6 +23,14 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/kcat', \App\Http\Controllers\KcatPortalController::class)->name('kcat.index');
+Route::post('/kcat/tests/{test}/start', [\App\Http\Controllers\KcatPortalController::class, 'start'])
+    ->middleware(['auth', 'throttle:20,1'])->name('kcat.start');
+Route::get('/kcat/reports/{attempt}/download', [\App\Http\Controllers\KcatPortalController::class, 'download'])
+    ->middleware(['auth', 'throttle:20,1'])->name('kcat.report.download');
+Route::get('/kcat/login', function () {
+    return redirect()->route('kcat.index');
+})->middleware('auth')->name('kcat.login');
 Route::view('/about-us', 'about');
 Route::get('/lessons', [LessonController::class, 'library'])->name('lessons.library');
 Route::get('/lessons/{lesson}', [LessonController::class, 'showPublic'])->name('lessons.show');
@@ -96,6 +104,9 @@ Route::middleware(['auth', 'volunteer.teacher'])->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/kcat/access', [\App\Http\Controllers\Admin\KcatAccessController::class, 'index'])->name('kcat.access.index');
+    Route::post('/kcat/access', [\App\Http\Controllers\Admin\KcatAccessController::class, 'store'])->name('kcat.access.store');
+    Route::delete('/kcat/access/{user}', [\App\Http\Controllers\Admin\KcatAccessController::class, 'destroy'])->name('kcat.access.destroy');
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::post('/announcements', [AdminController::class, 'storeAnnouncement'])->name('announcements.store');
     Route::post('/announcements/{announcement}/toggle', [AdminController::class, 'toggleAnnouncement'])->name('announcements.toggle');
@@ -123,4 +134,3 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 });
 
 // Fallback route for 404 errors
-

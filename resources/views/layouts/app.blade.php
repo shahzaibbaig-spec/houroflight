@@ -31,6 +31,7 @@
                     <a href="{{ route('lessons.library') }}" class="hol-top-link">Lesson Library</a>
                     <a href="{{ route('e-resources.index') }}" class="hol-top-link">E-Resources</a>
                     <a href="{{ route('ai.lesson-planner') }}" class="hol-top-link">AI Planner</a>
+                    <a href="{{ route('kcat.index') }}" class="hol-top-link">KCAT</a>
                     <a href="{{ url('/register-school') }}" class="hol-top-link">Register School</a>
 
                     @if($canViewDonations)
@@ -49,6 +50,7 @@
                         <a href="{{ route('admin.dashboard') }}" class="hol-top-link">Admin</a>
                         <a href="{{ route('admin.volunteers.index') }}" class="hol-top-link">Admin: Volunteers</a>
                         <a href="{{ route('admin.lessons.index') }}" class="hol-top-link">Admin: Lessons</a>
+                        <a href="{{ route('admin.kcat.access.index') }}" class="hol-top-link">KCAT Access</a>
                     @endif
                 </nav>
 
@@ -91,6 +93,7 @@
                 <a href="{{ route('lessons.library') }}" class="hol-nav-link">Lesson Library</a>
                 <a href="{{ route('e-resources.index') }}" class="hol-nav-link">E-Resources</a>
                 <a href="{{ route('ai.lesson-planner') }}" class="hol-nav-link">AI Planner</a>
+                <a href="{{ route('kcat.index') }}" class="hol-nav-link">KCAT</a>
                 <a href="{{ url('/register-school') }}" class="hol-nav-link">Register School</a>
 
                 @if($canViewDonations)
@@ -109,6 +112,7 @@
                     <a href="{{ route('admin.dashboard') }}" class="hol-nav-link">Admin</a>
                     <a href="{{ route('admin.volunteers.index') }}" class="hol-nav-link">Admin: Volunteers</a>
                     <a href="{{ route('admin.lessons.index') }}" class="hol-nav-link">Admin: Lessons</a>
+                    <a href="{{ route('admin.kcat.access.index') }}" class="hol-nav-link">KCAT Access</a>
                 @endif
 
                 <div class="hol-mobile-cta-wrap">

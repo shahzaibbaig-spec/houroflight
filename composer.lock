@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "faecef4550a893c9d38473307bb3fd88",
+    "content-hash": "31d904d8c1f51f735228a4de26d28d20",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2732,6 +2732,37 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.7.0"
             },
             "time": "2025-12-06T11:56:16+00:00"
+        },
+        {
+            "name": "nsms/kcat",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "packages/nsms/kcat",
+                "reference": "f9846911aad66f57286b4da7926976f24a758c48"
+            },
+            "require": {
+                "laravel/framework": "^11.0",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Nsms\\Kcat\\KcatServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nsms\\Kcat\\": "src/"
+                }
+            },
+            "description": "Extracted KCAT assessment module for Laravel",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            }
         },
         {
             "name": "nunomaduro/termwind",

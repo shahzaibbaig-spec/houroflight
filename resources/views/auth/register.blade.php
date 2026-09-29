@@ -3,7 +3,7 @@
 @section('content')
     <section class="mx-auto max-w-2xl rounded-2xl bg-white p-6 shadow-sm sm:p-8">
         <h1 class="text-3xl font-extrabold text-black">Create Account</h1>
-        <p class="mt-2 text-sm text-slate-600">Sign up as a donor or volunteer teacher to support Hour of Light.</p>
+        <p class="mt-2 text-sm text-slate-600">Create your free account to take KCAT and download your detailed report. You can also donate or volunteer with Hour of Light.</p>
 
         @if($errors->any())
             <div class="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
@@ -96,4 +96,3 @@
         })();
     </script>
 @endsection
-

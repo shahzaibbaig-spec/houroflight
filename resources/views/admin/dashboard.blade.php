@@ -4,6 +4,10 @@
     <section class="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
         <h1 class="text-3xl font-extrabold text-black">Admin Panel</h1>
         <p class="mt-2 text-sm text-slate-600">Manage school registrations, donations, and popup announcements.</p>
+        <div class="mt-4 flex flex-wrap gap-3">
+            <a href="{{ route('kcat.career-counselor.kcat.dashboard') }}" class="hol-cta-primary">Manage KCAT</a>
+            <a href="{{ route('admin.kcat.access.index') }}" class="hol-cta-secondary">KCAT student &amp; staff access</a>
+        </div>
 
         @if(session('success'))
             <div class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">

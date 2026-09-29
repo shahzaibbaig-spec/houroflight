@@ -1,0 +1,21 @@
+<?php
+return [
+    'view_kcat_panel',
+    'manage_kcat_tests',
+    'manage_kcat_adaptive_settings',
+    'manage_kcat_questions',
+    'assign_kcat_tests',
+    'view_kcat_reports',
+    'delete_kcat_results',
+    'manually_enter_kcat_attempt',
+    'print_kcat_reports',
+    'view_kcat_stream_recommendations',
+    'override_kcat_stream_recommendation',
+    'manage_kcat_report_notes',
+    'view_kcat_question_quality',
+    'review_kcat_questions',
+    'retire_kcat_questions',
+    'view_all_kcat_reports',
+    'view_kcat_question_analytics',
+    'attempt_kcat_test',
+];

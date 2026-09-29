@@ -10,6 +10,7 @@
         "barryvdh/laravel-dompdf": "*",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
+        "nsms/kcat": "1.0.0",
         "stripe/stripe-php": "^19.3"
     },
     "require-dev": {
@@ -68,6 +69,9 @@
             "php-http/discovery": true
         }
     },
+    "repositories": [
+        {"type": "path", "url": "packages/nsms/kcat", "options": {"symlink": false}}
+    ],
     "minimum-stability": "stable",
     "prefer-stable": true
 }

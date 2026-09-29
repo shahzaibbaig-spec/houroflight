@@ -67,6 +67,9 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Project Setup Notes
 
+KCAT assessments are integrated with the website login and admin panel. See
+[KCAT setup and usage](docs/KCAT.md) for installation, question-bank setup, and tests.
+
 For volunteer lesson uploads (video/document) to be publicly accessible, create the storage symlink:
 
 ```bash
