@@ -21,3 +21,13 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Local backups, database exports, and duplicate framework scaffold
+/exports/
+/_laravel11/
+*.sql
+*.sqlite*
+.env.*
+!.env.example
+/composer-setup.php
+/php.ini
