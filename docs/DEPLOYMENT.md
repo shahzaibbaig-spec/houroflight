@@ -31,6 +31,20 @@ Do not use the general `db:seed` command: its admin seeder resets a password.
 
 If Node.js is unavailable on the server, run `npm ci` and `npm run build` in your
 deployment build environment and deploy the resulting `public/build` directory.
+The checked-in `deployment/frontend-build.zip` contains the build for the shared
+website and KCAT layout. On the current host, which serves `../public_html`, run:
+
+```sh
+composer reinstall nsms/kcat --no-interaction
+mkdir -p public/build ../public_html/build
+unzip -o deployment/frontend-build.zip -d public/build
+unzip -o deployment/frontend-build.zip -d ../public_html/build
+php artisan optimize:clear
+php artisan optimize
+```
+
+After changing frontend source, regenerate this archive from the contents of
+`public/build` (with `manifest.json` and `assets` at the archive root).
 Remove a stale `public/hot` file if one was uploaded from a development machine.
 
 Preserve the existing `APP_KEY`, database settings, and storage. In the live `.env`,

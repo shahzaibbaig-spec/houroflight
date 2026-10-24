@@ -47,7 +47,7 @@
             const startedAt = Date.now();
             const field = document.getElementById('response_time_seconds');
             if (!field) return;
-            document.querySelector('form')?.addEventListener('submit', () => {
+            field.closest('form')?.addEventListener('submit', () => {
                 const seconds = Math.max(0, Math.round((Date.now() - startedAt) / 1000));
                 field.value = String(seconds);
             });
